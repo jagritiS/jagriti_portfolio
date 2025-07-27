@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Jagriti Srivastava – Portfolio</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;700&display=swap" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+
+  <style>
+    body {
+      margin: 0; padding: 0;
+      font-family: 'Source Code Pro', monospace;
+      background: #f8f9fa;
+      transition: background 0.5s ease;
+    }
+
+    /* Container for hero */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      transition: background 0.7s ease;
+    }
+
+    /* Grid layout: 3 columns on desktop */
+    .hero .container {
+      display: flex;
+      max-width: 1200px;
+      width: 100%;
+      gap: 3rem;
+    }
+
+    /* Nav menu styles */
+    nav.nav-menu {
+      flex: 1;
+    }
+    nav.nav-menu ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    nav.nav-menu li {
+      margin: 1.5rem 0;
+    }
+    nav.nav-menu a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      font-size: 1.25rem;
+      font-weight: 500;
+      color: var(--nav-text, #E2F4F3);
+      background-color: var(--nav-bg, #2E5A56);
+      padding: 10px 18px;
+      border-radius: 8px;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+    nav.nav-menu a:hover {
+      background-color: var(--nav-hover-bg, #4C9C95);
+      color: #fff;
+      transform: scale(1.05);
+    }
+    .icon-box {
+      font-size: 1.4rem;
+    }
+
+    /* Center section: photo + name + typed text */
+    .hero-center {
+      flex: 1.5;
+      text-align: center;
+      color: var(--center-text, #f4f4f4);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+    .hero-center h1.name-code {
+      font-size: 3rem;
+      letter-spacing: 1px;
+      margin-bottom: 0.3rem;
+    }
+    .cursor {
+      animation: blink 0.7s infinite;
+      font-weight: bold;
+      color: #fff;
+    }
+    .profile-pic-lg {
+      width: 180px;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 5px solid #fff;
+      box-shadow: 0 0 12px rgba(0,0,0,0.15);
+      margin-top: 1rem;
+    }
+
+    /* Social contacts vertical */
+    .social-contacts {
+      flex: 0.5;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1.5rem;
+    }
+    .social-contacts a {
+      font-size: 1.8rem;
+      color: var(--social-color, #E2F4F3);
+      transition: color 0.3s ease, transform 0.3s ease;
+    }
+    .social-contacts a:hover {
+      color: var(--social-hover-color, #4C9C95);
+      transform: scale(1.2);
+    }
+
+    /* Blink animation */
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    /* Responsive: stack vertically on mobile */
+    @media (max-width: 768px) {
+      .hero .container {
+        flex-direction: column;
+        gap: 2rem;
+      }
+      nav.nav-menu,
+      .hero-center,
+      .social-contacts {
+        flex: none;
+        width: 100%;
+      }
+      .social-contacts {
+        flex-direction: row;
+        justify-content: center;
+        gap: 1rem;
+      }
+    }
+
+    /* THEMES */
+    /* Default theme (deep green) */
+    .theme1 {
+      --nav-bg: #2E5A56;
+      --nav-hover-bg: #4C9C95;
+      --nav-text: #E2F4F3;
+      --center-text: #f4f4f4;
+      --social-color: #E2F4F3;
+      --social-hover-color: #4C9C95;
+      background: linear-gradient(to right, #1E403D, #2E5A56);
+    }
+    /* Blue Purple */
+    .theme2 {
+      --nav-bg: #1834a1;
+      --nav-hover-bg: #2c47b9;
+      --nav-text: #d6e0ff;
+      --center-text: #d6e0ff;
+      --social-color: #d6e0ff;
+      --social-hover-color: #ffd700;
+      background: linear-gradient(135deg, #6a11cb, #2575fc);
+    }
+    /* Warm Sunset */
+    .theme3 {
+      --nav-bg: #ffef9f;
+      --nav-hover-bg: #ffe263;
+      --nav-text: #4b3b00;
+      --center-text: #4b3b00;
+      --social-color: #4b3b00;
+      --social-hover-color: #7a5f00;
+      background: linear-gradient(135deg, #f7971e, #ffd200);
+    }
+    /* Dark Mode */
+    .theme4 {
+      --nav-bg: #333333;
+      --nav-hover-bg: #444444;
+      --nav-text: #eeeeee;
+      --center-text: #eeeeee;
+      --social-color: #eeeeee;
+      --social-hover-color: #00e5ff;
+      background: #121212;
+    }
+
+    /* Theme toggle button */
+    #themeToggleBtn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #4C9C95;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 30px;
+      cursor: pointer;
+      font-weight: 600;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+      z-index: 9999;
+      transition: background-color 0.3s ease;
+    }
+    #themeToggleBtn:hover {
+      background-color: #367d75;
+    }
+  </style>
+</head>
+<body class="theme1">
+
+<section class="hero">
+  <div class="container">
+    <!-- Nav Menu -->
+    <nav class="nav-menu" aria-label="Primary navigation">
+      <ul class="nav-links">
+        <li><a href="#about"><span class="icon-box">📘</span> About</a></li>
+        <li><a href="#resume"><span class="icon-box">📄</span> Resume</a></li>
+        <li><a href="#services"><span class="icon-box">🛠️</span> Services</a></li>
+        <li><a href="#portfolio"><span class="icon-box">💼</span> Portfolio</a></li>
+        <li><a href="#contact"><span class="icon-box">📧</span> Contact</a></li>
+      </ul>
+    </nav>
+
+    <!-- Center: Name + Photo + Typed text -->
+    <div class="hero-center">
+      <h1 class="name-code">Jagriti Srivastava</h1>
+      <p class="lead"><span id="typed-text"></span><span class="cursor">|</span></p>
+      <img src="jags.jpg" alt="Jagriti Photo" class="profile-pic-lg" />
+    </div>
+
+    <!-- Social Links -->
+    <div class="social-contacts" aria-label="Social media links">
+      <a href="https://www.linkedin.com/in/jagritisrivastava/" target="_blank" title="LinkedIn" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+      <a href="https://www.linkedin.com/in/jagritisrivastava/" target="_blank" title="GitHub" aria-label="GitHub"><i class="fab fa-github"></i></a>
+      <a href="https://www.udemy.com/user/jagriti-srivastava-23/" target="_blank" title="Udemy" aria-label="Udemy"><i class="fas fa-graduation-cap"></i></a>
+      <a href="https://medium.com/@jagritisrvstv" target="_blank" title="Medium" aria-label="Medium"><i class="fab fa-medium"></i></a>
+      <a href="https://www.slideshare.net/jagritis" target="_blank" title="SlideShare" aria-label="SlideShare"><i class="fab fa-slideshare"></i></a>
+    </div>
+  </div>
+</section>
+
+<!-- Theme toggle button -->
+<button id="themeToggleBtn" aria-label="Toggle theme">Switch Theme</button>
+
+<!-- Typed text script -->
+<script>
+  const phrases = [
+    "Full Stack Developer",
+    "AI Enthusiast",
+    "Mentor / IT Instructor",
+    "Tech Blogger"
+  ];
+  let currentPhrase = 0;
+  let currentChar = 0;
+  const typedText = document.getElementById("typed-text");
+
+  function type() {
+    const current = phrases[currentPhrase];
+    typedText.textContent = current.slice(0, currentChar++);
+    if (currentChar <= current.length) {
+      setTimeout(type, 100);
+    } else {
+      setTimeout(erase, 2000);
+    }
+  }
+  function erase() {
+    const current = phrases[currentPhrase];
+    typedText.textContent = current.slice(0, --currentChar);
+    if (currentChar > 0) {
+      setTimeout(erase, 50);
+    } else {
+      currentPhrase = (currentPhrase + 1) % phrases.length;
+      setTimeout(type, 500);
+    }
+  }
+  document.addEventListener("DOMContentLoaded", type);
+
+  // Theme toggle logic
+  const themes = ['theme1', 'theme2', 'theme3', 'theme4'];
+  let currentThemeIndex = 0;
+  const btn = document.getElementById('themeToggleBtn');
+  btn.addEventListener('click', () => {
+    document.body.classList.remove(themes[currentThemeIndex]);
+    currentThemeIndex = (currentThemeIndex + 1) % themes.length;
+    document.body.classList.add(themes[currentThemeIndex]);
+  });
+</script>
+
+
+<!-- About Section -->
+<section id="about" class="py-5" style="background-color:#E2F4F3;" data-aos="fade-up">
+  <div class="container">
+    <h2 class="text-center mb-4">About Me</h2>
+    <p class="text-center">
+      Hi! I'm Jagriti Srivastava, a passionate software engineer specializing in full-stack development, AI-powered solutions, and cloud technologies.
+      I love transforming complex problems into elegant, efficient code and helping others grow through mentoring and teaching.
+    </p>
+    <p class="text-center">
+      With experience across diverse industries and technologies, I continuously strive to stay updated with the latest trends in software development and AI.
+      When I’m not coding, you’ll find me blogging about tech, exploring new tools, or spending quality time with my family.
+    </p>
+  </div>
+</section>
+
+
+<!-- Resume Section -->
+<section id="resume" class="py-5" style="background-color:#f8f9fa;" data-aos="fade-up">
+  <div class="container">
+    <div class="row">
+
+      <div class="col-md-12">
+        <!-- Work Experience Section -->
+        <!-- Work Experience Horizontal Timeline -->
+        <section id="experience" class="py-5" style="background-color:#E2F4F3;">
+          <div class="container">
+            <h2 class="text-center mb-5" data-aos="fade-up">Work Experience</h2>
+            <div class="d-flex flex-wrap justify-content-between align-items-center position-relative" style="overflow-x:auto;" data-aos="fade-left" data-aos-duration="1500">
+
+              <!-- Timeline line -->
+              <div style="
+        position: absolute;
+        top: 50%;
+        left: 20px;
+        right: 20px;
+        height: 4px;
+        background-color: #2E5A56;
+        transform: translateY(-50%);
+        z-index: 1;
+        border-radius: 2px;
+      "></div>
+
+              <!-- Timeline item 1 -->
+              <div class="text-center position-relative px-3 mb-4" style="min-width: 180px; z-index: 2;">
+                <div style="
+          width: 40px;
+          height: 40px;
+          background-color: #2E5A56;
+          color: white;
+          border-radius: 50%;
+          margin: 0 auto 10px auto;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-weight: bold;
+          font-size: 1.2rem;
+          box-shadow: 0 0 8px rgba(46,90,86,0.7);
+        ">1</div>
+                <h5 class="mb-1">DSA Daten und Systemtechnik GmbH</h5>
+                <small class="text-muted">Software Developer<br>Jun 2023 – Mar 2025<br>Aachen, Germany</small>
+              </div>
+
+              <!-- Timeline item 2 -->
+              <div class="text-center position-relative px-3 mb-4" style="min-width: 180px; z-index: 2;">
+                <div style="
+          width: 40px;
+          height: 40px;
+          background-color: #2E5A56;
+          color: white;
+          border-radius: 50%;
+          margin: 0 auto 10px auto;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-weight: bold;
+          font-size: 1.2rem;
+          box-shadow: 0 0 8px rgba(46,90,86,0.7);
+        ">2</div>
+                <h5 class="mb-1">Mimo Technologies</h5>
+                <small class="text-muted">Software Engineer<br>Mar 2022 – Sept 2022<br>Noida, India</small>
+              </div>
+
+              <!-- Timeline item 3 -->
+              <div class="text-center position-relative px-3 mb-4" style="min-width: 180px; z-index: 2;">
+                <div style="
+          width: 40px;
+          height: 40px;
+          background-color: #2E5A56;
+          color: white;
+          border-radius: 50%;
+          margin: 0 auto 10px auto;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-weight: bold;
+          font-size: 1.2rem;
+          box-shadow: 0 0 8px rgba(46,90,86,0.7);
+        ">3</div>
+                <h5 class="mb-1">Deerwalk Inc.</h5>
+                <small class="text-muted">Software Engineer<br>May 2021 – Nov 2021<br>Kathmandu, Nepal</small>
+              </div>
+
+              <!-- Timeline item 4 -->
+              <div class="text-center position-relative px-3 mb-4" style="min-width: 180px; z-index: 2;">
+                <div style="
+          width: 40px;
+          height: 40px;
+          background-color: #2E5A56;
+          color: white;
+          border-radius: 50%;
+          margin: 0 auto 10px auto;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-weight: bold;
+          font-size: 1.2rem;
+          box-shadow: 0 0 8px rgba(46,90,86,0.7);
+        ">4</div>
+                <h5 class="mb-1">Sunway International Business School</h5>
+                <small class="text-muted">Software Developer / Teaching Assistant<br>Jun 2019 – May 2021<br>Kathmandu, Nepal</small>
+              </div>
+
+              <!-- Timeline item 5 -->
+              <div class="text-center position-relative px-3 mb-4" style="min-width: 180px; z-index: 2;">
+                <div style="
+          width: 40px;
+          height: 40px;
+          background-color: #2E5A56;
+          color: white;
+          border-radius: 50%;
+          margin: 0 auto 10px auto;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-weight: bold;
+          font-size: 1.2rem;
+          box-shadow: 0 0 8px rgba(46,90,86,0.7);
+        ">5</div>
+                <h5 class="mb-1">Neosphere Pvt Ltd.</h5>
+                <small class="text-muted">Senior IT Instructor / Software Developer<br>May 2018 – Jul 2019<br>Kathmandu, Nepal</small>
+              </div>
+
+              <!-- Timeline item 6 -->
+              <div class="text-center position-relative px-3 mb-4" style="min-width: 180px; z-index: 2;">
+                <div style="
+          width: 40px;
+          height: 40px;
+          background-color: #2E5A56;
+          color: white;
+          border-radius: 50%;
+          margin: 0 auto 10px auto;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-weight: bold;
+          font-size: 1.2rem;
+          box-shadow: 0 0 8px rgba(46,90,86,0.7);
+        ">6</div>
+                <h5 class="mb-1">Harati Computer Services Pvt Ltd.</h5>
+                <small class="text-muted">Software Developer<br>Mar 2013 – Mar 2015<br>Kathmandu, Nepal</small>
+              </div>
+
+            </div>
+          </div>
+        </section>
+
+        <!-- Include AOS and Bootstrap JS if not already added -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+        <script>
+          AOS.init({ duration: 1000, once: true });
+        </script>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Services Section -->
+<!-- Services Section -->
+<section id="services" class="py-5" style="background-color:#D6ECE9;" data-aos="fade-up">
+  <div class="container">
+    <h2 class="text-center mb-4">Services</h2>
+    <div class="row text-center g-4">
+
+      <!-- Service 1 -->
+      <div class="col-md-4">
+        <div class="p-4 shadow-sm rounded h-100" style="background-color: #FFE6E6;">
+          <i class="bi bi-code-slash fs-2 text-success mb-3"></i>
+          <h5>Custom Software Development</h5>
+          <p>Building scalable, secure, and maintainable applications using Java, Python, Spring Boot, Django, and modern front-end frameworks.</p>
+        </div>
+      </div>
+
+      <!-- Service 2 -->
+      <div class="col-md-4">
+        <div class="p-4 shadow-sm rounded h-100" style="background-color: #E6F7FF;">
+          <i class="bi bi-robot fs-2 text-success mb-3"></i>
+          <h5>Automation & Testing Solutions</h5>
+          <p>Developing automated testing frameworks and CI/CD pipelines with Robot Framework, Playwright, Jenkins, GitHub Actions, and Python scripting.</p>
+        </div>
+      </div>
+
+      <!-- Service 3 -->
+      <div class="col-md-4">
+        <div class="p-4 shadow-sm rounded h-100" style="background-color: #F5FFE6;">
+          <i class="bi bi-cloud-upload fs-2 text-success mb-3"></i>
+          <h5>Cloud & DevOps Consulting</h5>
+          <p>Implementing containerization, deployment automation, and cloud infrastructure setup using Docker, AWS, Ansible, and DevOps best practices.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<section id="portfolio" class="py-5" style="background-color:#f8f9fa;" data-aos="fade-up">
+  <div class="container">
+    <h2 class="text-center mb-5">Portfolio</h2>
+    <div class="row g-4 justify-content-center">
+
+      <!-- Project 1 -->
+      <div class="col-md-6 col-lg-3">
+        <a href="https://github.com/jagritiS/all-captcha" target="_blank"
+           class="portfolio-card text-decoration-none text-dark shadow-sm rounded p-3 d-block h-100"
+           style="background-color: #FFDDEE;">
+          <h5>All-CAPTCHA API</h5>
+          <p class="small">Multi-type CAPTCHA API built with Python Flask featuring text, math, slider, audio, and Google reCAPTCHA support.</p>
+        </a>
+      </div>
+
+      <!-- Project 2 -->
+      <div class="col-md-6 col-lg-3">
+        <a href="https://github.com/jagritiS/aiget" target="_blank"
+           class="portfolio-card text-decoration-none text-dark shadow-sm rounded p-3 d-block h-100"
+           style="background-color: #DDEEFF;">
+          <h5>AIGeT - Auto-Issue Generator Tool</h5>
+          <p class="small">AI-powered tool that detects TODO comments in code and auto-generates or updates GitHub issues for better project management.</p>
+        </a>
+      </div>
+
+      <!-- Project 3 -->
+      <div class="col-md-6 col-lg-3">
+        <a href="https://github.com/jagritiS/AIMLN-Projects" target="_blank"
+           class="portfolio-card text-decoration-none text-dark shadow-sm rounded p-3 d-block h-100"
+           style="background-color: #EEFFDD;">
+          <h5>AI & Machine Learning Projects</h5>
+          <p class="small">Multiple ML models for NER, sentiment analysis, and text classification using Scikit-learn and TensorFlow.</p>
+        </a>
+      </div>
+
+      <!-- Project 4 -->
+      <div class="col-md-6 col-lg-3">
+        <a href="https://github.com/jagritiS" target="_blank"
+           class="portfolio-card text-decoration-none text-dark shadow-sm rounded p-3 d-block h-100"
+           style="background-color: #FFF0DD;">
+          <h5>More Projects</h5>
+          <p class="small">Explore my GitHub for open-source contributions and other personal and professional projects.</p>
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  .portfolio-card:hover {
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    transform: translateY(-6px);
+    transition: all 0.3s ease;
+  }
+  .portfolio-card img {
+    transition: transform 0.3s ease;
+  }
+  .portfolio-card:hover img {
+    transform: scale(1.05);
+  }
+</style>
+
+
+<footer class="bg-dark text-light py-4 mt-5">
+  <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center">
+    <div class="mb-3 mb-md-0">
+      <strong>© 2025 Jagriti Srivastava</strong> — Crafted with passion for clean code & AI innovations
+    </div>
+  </div>
+</footer>
+
+<style>
+  footer a:hover {
+    color: #4C9C95;
+    text-decoration: none;
+    transform: scale(1.2);
+    transition: 0.3s ease;
+  }
+</style>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script>
+  AOS.init({ duration: 1000, once: true });
+  const phrases = [
+    "Full Stack Developer",
+    "AI Enthusiast",
+    "Mentor / IT Instructor",
+    "Tech Blogger"
+  ];
+  let currentPhrase = 0;
+  let currentChar = 0;
+  const typedText = document.getElementById("typed-text");
+  function type() {
+    const current = phrases[currentPhrase];
+    typedText.textContent = current.slice(0, currentChar++);
+    if (currentChar <= current.length) {
+      setTimeout(type, 100);
+    } else {
+      setTimeout(erase, 2000);
+    }
+  }
+  function erase() {
+    const current = phrases[currentPhrase];
+    typedText.textContent = current.slice(0, --currentChar);
+    if (currentChar > 0) {
+      setTimeout(erase, 50);
+    } else {
+      currentPhrase = (currentPhrase + 1) % phrases.length;
+      setTimeout(type, 500);
+    }
+  }
+  document.addEventListener("DOMContentLoaded", type);
+</script>
+</body>
+</html>
+
