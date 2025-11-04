@@ -3,609 +3,547 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Jagriti Srivastava – Portfolio</title>
 
-  <!-- Bootstrap CSS -->
+
+  <title>Jagriti Srivastava</title>
+
+  <link rel="icon" type="image/png" href="logos/favicon.ico">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;500;700&display=swap" rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
 
   <style>
+    /* Custom Properties (Managed by Themes) */
+    :root {
+      /* Default Fallbacks (set to Theme 1 initially) */
+      --nav-bg: #1A1A1A;
+      --nav-hover-bg: #00FF41;
+      --nav-text: #00FF41;
+      --nav-text-hover: #1A1A1A;
+      --center-text: #00FF41;
+      --social-color: #00FF41;
+      --social-hover-color: #FFFFFF;
+      
+      /* Content Variables for Dark Theme */
+      --main-bg-color-content: #121212;
+      --main-text-color-content: #00FF41;
+      --alt-bg-color-content: #0A0A0A;
+
+      /* Code Texture Pattern (must use a code-friendly font like Source Code Pro for best effect) */
+      --hero-bg-code: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Ctext x='10' y='25' font-size='10' font-family='Source Code Pro' fill='%2300FF4115'%3E%3C%3C/text%3E%3Ctext x='10' y='55' font-size='10' font-family='Source Code Pro' fill='%2300FF4115'%3E/%3E%3C/text%3E%3Ctext x='10' y='85' font-size='10' font-family='Source Code Pro' fill='%2300FF4115'%3E%7B%7D%3C/text%3E%3C/svg%3E");
+    }
+
     body {
       margin: 0; padding: 0;
       font-family: 'Source Code Pro', monospace;
-      background: #f8f9fa;
-      transition: background 0.5s ease;
+      background: var(--main-bg-color-content);
+      color: var(--main-text-color-content);
+      transition: background 1s ease, color 1s ease; 
+      scroll-behavior: smooth;
     }
 
-    /* Container for hero */
+    /* General Layout and Structure */
     .hero {
       min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
       padding: 2rem;
-      transition: background 0.7s ease;
+      background-color: var(--main-bg-color-content);
+      background-image: var(--hero-bg-code);
+      background-size: 100px 100px;
+      transition: background 1s ease, background-image 1s ease;
+      position: relative;
+      overflow: hidden;
     }
-
-    /* Grid layout: 3 columns on desktop */
+    .hero::before {
+        content: "";
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background-color: rgba(0, 0, 0, 0.05); 
+        z-index: 1;
+    }
     .hero .container {
       display: flex;
       max-width: 1200px;
       width: 100%;
       gap: 3rem;
+      z-index: 2;
     }
 
-    /* Nav menu styles */
-    nav.nav-menu {
-      flex: 1;
-    }
-    nav.nav-menu ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-    nav.nav-menu li {
-      margin: 1.5rem 0;
-    }
+    /* Navigation Menu */
+    nav.nav-menu { flex: 1; }
+    nav.nav-menu ul { list-style: none; padding: 0; margin: 0; }
+    nav.nav-menu li { margin: 1.5rem 0; }
     nav.nav-menu a {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      text-decoration: none;
-      font-size: 1.25rem;
-      font-weight: 500;
-      color: var(--nav-text, #E2F4F3);
-      background-color: var(--nav-bg, #2E5A56);
-      padding: 10px 18px;
+      color: var(--nav-text);
+      background-color: var(--nav-bg);
+      display: block;
+      padding: 0.75rem 1.25rem;
       border-radius: 8px;
-      transition: background-color 0.3s ease, transform 0.2s ease;
+      text-decoration: none;
+      font-weight: 500;
+      letter-spacing: 1px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
     }
     nav.nav-menu a:hover {
-      background-color: var(--nav-hover-bg, #4C9C95);
-      color: #fff;
-      transform: scale(1.05);
+      background-color: var(--nav-hover-bg);
+      color: var(--nav-text-hover, #fff); 
+      transform: scale(1.03);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
     }
-    .icon-box {
-      font-size: 1.4rem;
-    }
+    .icon-box { margin-right: 10px; font-size: 1.2em; }
 
-    /* Center section: photo + name + typed text */
+    /* Hero Center Text and Image */
     .hero-center {
-      flex: 1.5;
-      text-align: center;
-      color: var(--center-text, #f4f4f4);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
+        flex: 2;
+        text-align: center;
+        color: var(--center-text);
     }
-    .hero-center h1.name-code {
-      font-size: 3rem;
-      letter-spacing: 1px;
-      margin-bottom: 0.3rem;
+    .name-code { font-size: 3rem; margin-bottom: 0.5rem; }
+    .lead { font-size: 1.5rem; margin-bottom: 2rem; }
+    .profile-pic-lg {
+        width: 180px; height: 180px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 5px solid var(--center-text); 
+        box-shadow: 0 0 15px var(--center-text);
     }
     .cursor {
-      animation: blink 0.7s infinite;
-      font-weight: bold;
-      color: #fff;
+        font-weight: 700;
+        animation: blink 0.7s infinite;
+        color: var(--center-text);
     }
-    .profile-pic-lg {
-      width: 180px;
-      height: 180px;
-      object-fit: cover;
-      border-radius: 50%;
-      border: 5px solid #fff;
-      box-shadow: 0 0 12px rgba(0,0,0,0.15);
-      margin-top: 1rem;
-    }
+    @keyframes blink { 50% { opacity: 0; } }
 
-    /* Social contacts vertical */
+    /* --- Social Contacts (Revised for Image Logos & Hover Title) --- */
     .social-contacts {
-      flex: 0.5;
+      flex: 1;
       display: flex;
       flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 1.5rem; 
+      position: relative;
+    }
+
+    .social-contacts a {
+      display: inline-block;
+      color: var(--social-color);
+      text-decoration: none;
+      transition: transform 0.3s ease;
+      position: relative;
+    }
+
+    .social-contacts a:hover {
+      transform: scale(1.25);
+    }
+
+    /* 1. Logo Container: Creates the White Circle */
+    .logo {
+      width: 45px; 
+      height: 45px;
+      border-radius: 50%;
+      background-color: #FFFFFF;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.4); 
+      display: flex;
       align-items: center;
       justify-content: center;
-      gap: 1.5rem;
-    }
-    .social-contacts a {
-      font-size: 1.8rem;
-      color: var(--social-color, #E2F4F3);
-      transition: color 0.3s ease, transform 0.3s ease;
-    }
-    .social-contacts a:hover {
-      color: var(--social-hover-color, #4C9C95);
-      transform: scale(1.2);
-    }
-
-    /* Blink animation */
-    @keyframes blink {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0; }
-    }
-
-    /* Responsive: stack vertically on mobile */
-    @media (max-width: 768px) {
-      .hero .container {
-        flex-direction: column;
-        gap: 2rem;
-      }
-      nav.nav-menu,
-      .hero-center,
-      .social-contacts {
-        flex: none;
-        width: 100%;
-      }
-      .social-contacts {
-        flex-direction: row;
-        justify-content: center;
-        gap: 1rem;
-      }
-    }
-
-    /* THEMES */
-    /* Default theme (deep green) */
-    .theme1 {
-      --nav-bg: #2E5A56;
-      --nav-hover-bg: #4C9C95;
-      --nav-text: #E2F4F3;
-      --center-text: #f4f4f4;
-      --social-color: #E2F4F3;
-      --social-hover-color: #4C9C95;
-      background: linear-gradient(to right, #1E403D, #2E5A56);
-    }
-    /* Blue Purple */
-    .theme2 {
-      --nav-bg: #1834a1;
-      --nav-hover-bg: #2c47b9;
-      --nav-text: #d6e0ff;
-      --center-text: #d6e0ff;
-      --social-color: #d6e0ff;
-      --social-hover-color: #ffd700;
-      background: linear-gradient(135deg, #6a11cb, #2575fc);
-    }
-    /* Warm Sunset */
-    .theme3 {
-      --nav-bg: #ffef9f;
-      --nav-hover-bg: #ffe263;
-      --nav-text: #4b3b00;
-      --center-text: #4b3b00;
-      --social-color: #4b3b00;
-      --social-hover-color: #7a5f00;
-      background: linear-gradient(135deg, #f7971e, #ffd200);
-    }
-    /* Dark Mode */
-    .theme4 {
-      --nav-bg: #333333;
-      --nav-hover-bg: #444444;
-      --nav-text: #eeeeee;
-      --center-text: #eeeeee;
-      --social-color: #eeeeee;
-      --social-hover-color: #00e5ff;
-      background: #121212;
-    }
-
-    /* Theme toggle button */
-    #themeToggleBtn {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background-color: #4C9C95;
-      color: white;
-      border: none;
-      padding: 10px 15px;
-      border-radius: 30px;
-      cursor: pointer;
-      font-weight: 600;
-      box-shadow: 0 3px 6px rgba(0,0,0,0.2);
-      z-index: 9999;
       transition: background-color 0.3s ease;
     }
-    #themeToggleBtn:hover {
-      background-color: #367d75;
+
+    /* 2. Image inside the Logo Container */
+    .logo img {
+      max-width: 60%;
+      max-height: 60%;
+      object-fit: contain; 
     }
+
+    /* 3. HOVER TITLE LOGIC */
+    .social-contacts a::after {
+      content: attr(title);
+      position: absolute;
+      left: 60px;
+      top: 50%;
+      transform: translateY(-50%) translateX(-10px);
+      white-space: nowrap;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--center-text);
+      text-shadow: 0 0 8px var(--center-text), 0 0 10px rgba(0, 0, 0, 0.5);
+      background: none;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+    }
+
+    .social-contacts a:hover::after {
+      opacity: 1;
+      transform: translateY(-50%) translateX(0);
+    }
+
+
+    /* Content Styling */
+    .service-card { border: 1px solid var(--nav-bg); }
+    .portfolio-card:hover, .content-card:hover {
+        background-color: var(--nav-hover-bg) !important;
+        color: var(--nav-text-hover, #000) !important;
+        transition: all 0.3s ease;
+    }
+    .portfolio-card:hover .text-secondary {
+        color: var(--nav-text-hover, #000) !important;
+    }
+
+    /* --- THEMES (Neon Focus) --- */
+
+    /* 1. TERMINAL GREEN */
+    .theme1 {
+      --nav-bg: #1A1A1A;
+      --nav-hover-bg: #9C00FF;
+      --nav-text: #00FF41;
+      --nav-text-hover: #1A1A1A;
+      --center-text: #00FF41; 
+      --social-color: #00FF41;
+      --social-hover-color: #FFFFFF;
+      --main-bg-color-content: #121212;
+      --main-text-color-content: #00FF41;
+      --alt-bg-color-content: #0A0A0A;
+      --hero-bg-code: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Ctext x='10' y='25' font-size='10' font-family='Source Code Pro' fill='%2300FF4115'%3E%3C%3C/text%3E%3Ctext x='10' y='55' font-size='10' font-family='Source Code Pro' fill='%2300FF4115'%3E/%3E%3C/text%3E%3Ctext x='10' y='85' font-size='10' font-family='Source Code Pro' fill='%2300FF4115'%3E%7B%7D%3C/text%3E%3C/svg%3E");
+    }
+
+    /* 2. NEON PURPLE HAZE */
+    .theme2 {
+      --nav-bg: #2C1A4A;
+      --nav-hover-bg: #9C00FF;
+      --nav-text: #FF00FF;
+      --nav-text-hover: #FFFFFF;
+      --center-text: #9C00FF;
+      --social-color: #FF00FF;
+      --social-hover-color: #FFFF00;
+      --main-bg-color-content: #1A0D2F;
+      --main-text-color-content: #FF00FF;
+      --alt-bg-color-content: #0F091A; 
+      --hero-bg-code: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Ctext x='10' y='25' font-size='10' font-family='Source Code Pro' fill='%23FF00FF15'%3E%3C%3C/text%3E%3Ctext x='10' y='55' font-size='10' font-family='Source Code Pro' fill='%23FF00FF15'%3E/%3E%3C/text%3E%3Ctext x='10' y='85' font-size='10' font-family='Source Code Pro' fill='%23FF00FF15'%3E%7B%7D%3C/text%3E%3C/svg%3E");
+    }
+
+    /* 3. SYNTHWAVE BLUE/TEAL */
+    .theme3 {
+      --nav-bg: #213A5C;
+      --nav-hover-bg: #FF00FF;
+      --nav-text: #00FFFF;
+      --nav-text-hover: #FFFFFF;
+      --center-text: #00FFFF;
+      --social-color: #00FFFF;
+      --social-hover-color: #FF00FF;
+      --main-bg-color-content: #0D1B2A;
+      --main-text-color-content: #00FFFF;
+      --alt-bg-color-content: #1B263B;
+      --hero-bg-code: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Ctext x='10' y='25' font-size='10' font-family='Source Code Pro' fill='%2300FFFF15'%3E%3C%3C/text%3E%3Ctext x='10' y='55' font-size='10' font-family='Source Code Pro' fill='%2300FFFF15'%3E/%3E%3C/text%3E%3Ctext x='10' y='85' font-size='10' font-family='Source Code Pro' fill='%2300FFFF15'%3E%7B%7D%3C/text%3E%3C/svg%3E");
+    }
+
+    /* General responsive and other styles (outside the scope of theme variables) */
+    @media (max-width: 992px) {
+        .hero .container { flex-direction: column; gap: 2rem; }
+        .nav-menu { order: 2; flex: none; width: 100%; text-align: center; }
+        .hero-center { order: 1; flex: none; }
+        .social-contacts { order: 3; flex: none; flex-direction: row; justify-content: center; width: 100%; }
+        nav.nav-menu li { display: inline-block; margin: 0.5rem; }
+        .name-code { font-size: 2.5rem; }
+    }
+    
+    /* Ensure footer text is legible on the nav background */
+    footer { color: var(--nav-text) !important; }
+    footer a { color: var(--nav-text) !important; }
+    
   </style>
 </head>
-<body class="theme1">
+<body class="theme2">
 
 <section class="hero">
   <div class="container">
-    <!-- Nav Menu -->
-    <nav class="nav-menu" aria-label="Primary navigation">
+    <nav class="nav-menu" aria-label="Primary navigation" data-aos="fade-right">
       <ul class="nav-links">
         <li><a href="#about"><span class="icon-box">📘</span> My Story</a></li>
-        <li><a href="#resume"><span class="icon-box">📄</span> Resume</a></li>
-        <li><a href="#services"><span class="icon-box">🛠️</span> What I offer ? </a></li>
-        <li><a href="#portfolio"><span class="icon-box">💼</span> Work Done</a></li>
-        <li><a href="#contact"><span class="icon-box">📧</span> Lets Work Together</a></li>
+        <li><a href="#activities"><span class="icon-box">🔥</span> Latest Code Activity</a></li>
+        <li><a href="#content-creation"><span class="icon-box">✍️</span> Content & AI Work</a></li>
+        <li><a href="#tech-stack"><span class="icon-box">💻</span> Tech Stack</a></li> <li><a href="#resume"><span class="icon-box">📄</span> Resume / Experience</a></li>
+        <li><a href="#services"><span class="icon-box">🛠️</span> What I Offer?</a></li>
+        <li><a href="#portfolio"><span class="icon-box">💼</span> Featured Work</a></li>
+        <li><a href="#contact"><span class="icon-box">📧</span> Let's Work Together</a></li>
       </ul>
     </nav>
 
-    <!-- Center: Name + Photo + Typed text -->
-    <div class="hero-center">
+    <div class="hero-center" data-aos="fade-up">
       <h1 class="name-code">Jagriti Srivastava</h1>
-      <p class="lead"><span id="typed-text"></span><span class="cursor">|</span></p>
-      <img src="jags.jpg" alt="Jagriti Photo" class="profile-pic-lg" />
+      <p class="lead">
+        <span class="d-inline-block me-2" id="typed-icon"></span>
+        <span id="typed-text"></span><span class="cursor">|</span>
+      </p>
+      <img src="jags.jpg" alt="Jagriti Photo" class="profile-pic-lg" /> 
     </div>
 
-    <!-- Social Links -->
-    <div class="social-contacts" aria-label="Social media links">
-      <a href="https://www.linkedin.com/in/jagritisrivastava/" target="_blank" title="LinkedIn" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-      <a href="https://www.linkedin.com/in/jagritisrivastava/" target="_blank" title="GitHub" aria-label="GitHub"><i class="fab fa-github"></i></a>
-      <a href="https://www.udemy.com/user/jagriti-srivastava-23/" target="_blank" title="Udemy" aria-label="Udemy"><i class="fas fa-graduation-cap"></i></a>
-      <a href="https://medium.com/@jagritisrvstv" target="_blank" title="Medium" aria-label="Medium"><i class="fab fa-medium"></i></a>
-      <a href="https://www.slideshare.net/jagritis" target="_blank" title="SlideShare" aria-label="SlideShare"><i class="fab fa-slideshare"></i></a>
+    <div class="social-contacts" aria-label="Social media links" data-aos="fade-left">
+      <a href="https://www.linkedin.com/in/jagritisrivastava/" target="_blank" title="LinkedIn" aria-label="LinkedIn"><i class="logo"><img src="logos/linkedin.png" /></i></a>
+      <a href="https://github.com/jagritiS" target="_blank" title="GitHub" aria-label="GitHub"><i class="logo"><img src="logos/github.png" /></i></a>
+      <a href="https://medium.com/@jagritisrvstv" target="_blank" title="Medium Articles" aria-label="Medium"><i class="logo"><img src="logos/medium.png" /></i></a>
+      <a href="https://huggingface.co/jagritisrvstv" target="_blank" title="Hugging Face" aria-label="Hugging Face"><i class="logo"><img src="logos/huggingface.svg" /> </i></a> 
+      <a href="https://www.kaggle.com/jagritisrivastava" target="_blank" title="Kaggle" aria-label="Kaggle"><i class="logo"><img src="logos/kaggle.png" /> </i></a>
+      <a href="https://www.udemy.com/user/jagriti-srivastava-23/" target="_blank" title="Udemy" aria-label="Udemy"><i class="logo"><img src="logos/udemy.png" /> </i></a>
+      <a href="https://pypi.org/user/jagritiS/" target="_blank" title="PyPI Packages" aria-label="PyPI"><i class="logo"><img src="logos/pypi.svg" /> </i></a>
     </div>
   </div>
 </section>
 
-<!-- Theme toggle button -->
-<button id="themeToggleBtn" aria-label="Toggle theme">Switch Theme</button>
+<div class="main-content">
 
-<!-- Typed text script -->
-<script>
-  const phrases = [
-    "Full Stack Developer",
-    "AI Enthusiast",
-    "Mentor / IT Instructor",
-    "Tech Blogger"
-  ];
-  let currentPhrase = 0;
-  let currentChar = 0;
-  const typedText = document.getElementById("typed-text");
-
-  function type() {
-    const current = phrases[currentPhrase];
-    typedText.textContent = current.slice(0, currentChar++);
-    if (currentChar <= current.length) {
-      setTimeout(type, 100);
-    } else {
-      setTimeout(erase, 2000);
-    }
-  }
-  function erase() {
-    const current = phrases[currentPhrase];
-    typedText.textContent = current.slice(0, --currentChar);
-    if (currentChar > 0) {
-      setTimeout(erase, 50);
-    } else {
-      currentPhrase = (currentPhrase + 1) % phrases.length;
-      setTimeout(type, 500);
-    }
-  }
-  document.addEventListener("DOMContentLoaded", type);
-
-  // Theme toggle logic
-  const themes = ['theme1', 'theme2', 'theme3', 'theme4'];
-  let currentThemeIndex = 0;
-  const btn = document.getElementById('themeToggleBtn');
-  btn.addEventListener('click', () => {
-    document.body.classList.remove(themes[currentThemeIndex]);
-    currentThemeIndex = (currentThemeIndex + 1) % themes.length;
-    document.body.classList.add(themes[currentThemeIndex]);
-  });
-</script>
+    <section id="about" class="py-5" style="background-color: var(--main-bg-color-content);">
+      <iframe src="about.html" 
+        width="100%" 
+        height="500px" 
+        style="border:none;">
+</iframe>
+    </section>
 
 
-<!-- About Section -->
-<section id="about" class="py-5" style="background-color:#E2F4F3;" data-aos="fade-up">
-  <div class="container">
-    <h2 class="text-center mb-4">Who I am ? </h2>
-    <p class="text-center">
-      Hi! I'm Jagriti Srivastava, a passionate software engineer specializing in full-stack development, AI-powered solutions, and cloud technologies.
-      I love transforming complex problems into elegant, efficient code and helping others grow through mentoring and teaching.
-    </p>
-    <p class="text-center">
-      With experience across diverse industries and technologies, I continuously strive to stay updated with the latest trends in software development and AI.
-      When I’m not coding, you’ll find me blogging about tech, exploring new tools, or spending quality time with my family.
-    </p>
-  </div>
-</section>
+
+    <section id="activities" class="py-5" style="background-color: var(--alt-bg-color-content);">
+      <iframe src="latest_activities.html" 
+        width="100%" 
+        height="500px" 
+        style="border:none;">
+</iframe>
+    </section>
 
 
-<!-- Resume Section -->
-<section id="resume" class="py-5" style="background-color:#f8f9fa;" data-aos="fade-up">
-  <div class="container">
-    <div class="row">
 
-      <div class="col-md-12">
-        <!-- Work Experience Section -->
-        <!-- Work Experience Horizontal Timeline -->
-        <section id="experience" class="py-5" style="background-color:#E2F4F3;">
-          <div class="container">
-            <h2 class="text-center mb-5" data-aos="fade-up">Work Experience</h2>
-            <div class="d-flex flex-wrap justify-content-between align-items-center position-relative" style="overflow-x:auto;" data-aos="fade-left" data-aos-duration="1500">
+    <section id="content-creation" class="py-5" style="background-color: var(--main-bg-color-content);">
+      <div class="container">
+        <h2 class="text-center mb-5" data-aos="fade-up" style="color: var(--main-text-color-content);">Content & AI Portfolio 🧠✍️</h2>
+        <p class="text-center lead mb-4" style="color: var(--main-text-color-content);">
+            Showcasing my work published on major developer and AI platforms.
+        </p>
+        <div class="row g-4 justify-content-center">
 
-              <!-- Timeline line -->
-              <div style="
-        position: absolute;
-        top: 50%;
-        left: 20px;
-        right: 20px;
-        height: 4px;
-        background-color: #2E5A56;
-        transform: translateY(-50%);
-        z-index: 1;
-        border-radius: 2px;
-      "></div>
+            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
+                <a href="https://medium.com/@jagritisrvstv" target="_blank"
+                   class="content-card text-decoration-none shadow-sm rounded p-4 d-block h-100"
+                   style="background-color: var(--alt-bg-color-content); color: var(--main-text-color-content) !important; border: 1px solid var(--nav-bg);">
+                    <i class="fab fa-medium-m fs-3 mb-3" style="color: var(--center-text);"></i>
+                    <h5>Medium Tech Articles</h5>
+                    <p class="small">In-depth technical articles on **Full Stack, Python, and AI/ML topics**. Sharing knowledge and tutorials with the community.</p>
+                </a>
+            </div>
+            
+            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
+                <a href="https://huggingface.co/jagritisrvstv" target="_blank"
+                   class="content-card text-decoration-none shadow-sm rounded p-4 d-block h-100"
+                   style="background-color: var(--alt-bg-color-content); color: var(--main-text-color-content) !important; border: 1px solid var(--nav-bg);">
+                    <i class="fas fa-cube fs-3 mb-3" style="color: var(--center-text);"></i>
+                    <h5>Hugging Face Contributions</h5>
+                    <p class="small">Published **AI/ML models, datasets, and interactive Spaces** demonstrating practical applications of deep learning.</p>
+                </a>
+            </div>
 
-              <!-- Timeline item 1 -->
-              <div class="text-center position-relative px-3 mb-4" style="min-width: 180px; z-index: 2;">
-                <div style="
-          width: 40px;
-          height: 40px;
-          background-color: #2E5A56;
-          color: white;
-          border-radius: 50%;
-          margin: 0 auto 10px auto;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-weight: bold;
-          font-size: 1.2rem;
-          box-shadow: 0 0 8px rgba(46,90,86,0.7);
-        ">1</div>
-                <h5 class="mb-1">DSA Daten und Systemtechnik GmbH</h5>
-                <small class="text-muted">Software Developer<br>Jun 2023 – Mar 2025<br>Aachen, Germany</small>
-              </div>
+            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="300">
+                <a href="https://www.kaggle.com/jagritisrivastava" target="_blank"
+                   class="content-card text-decoration-none shadow-sm rounded p-4 d-block h-100"
+                   style="background-color: var(--alt-bg-color-content); color: var(--main-text-color-content) !important; border: 1px solid var(--nav-bg);">
+                    <i class="fas fa-chart-bar fs-3 mb-3" style="color: var(--center-text);"></i>
+                    <h5>Kaggle Projects & Data</h5>
+                    <p class="small">Published **datasets, analysis notebooks, and competition entries** showcasing data science skills.</p>
+                </a>
+            </div>
 
-              <!-- Timeline item 2 -->
-              <div class="text-center position-relative px-3 mb-4" style="min-width: 180px; z-index: 2;">
-                <div style="
-          width: 40px;
-          height: 40px;
-          background-color: #2E5A56;
-          color: white;
-          border-radius: 50%;
-          margin: 0 auto 10px auto;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-weight: bold;
-          font-size: 1.2rem;
-          box-shadow: 0 0 8px rgba(46,90,86,0.7);
-        ">2</div>
-                <h5 class="mb-1">Mimo Technologies</h5>
-                <small class="text-muted">Software Engineer<br>Mar 2022 – Sept 2022<br>Noida, India</small>
-              </div>
+            <div class="col-12 mt-4 text-center">
+                <p class="lead" style="color: var(--main-text-color-content);">
+                    <i class="fas fa-box me-2" style="color: var(--nav-hover-bg);"></i> 
+                    Check out my published Python packages on **PyPI** for reusable code solutions!
+                    <a href="https://pypi.org/user/jagritiS/" target="_blank" style="color: var(--nav-hover-bg); text-decoration: none;">(View Packages)</a>
+                </p>
+            </div>
+        </div>
+      </div>
+    </section>
 
-              <!-- Timeline item 3 -->
-              <div class="text-center position-relative px-3 mb-4" style="min-width: 180px; z-index: 2;">
-                <div style="
-          width: 40px;
-          height: 40px;
-          background-color: #2E5A56;
-          color: white;
-          border-radius: 50%;
-          margin: 0 auto 10px auto;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-weight: bold;
-          font-size: 1.2rem;
-          box-shadow: 0 0 8px rgba(46,90,86,0.7);
-        ">3</div>
-                <h5 class="mb-1">Deerwalk Inc.</h5>
-                <small class="text-muted">Software Engineer<br>May 2021 – Nov 2021<br>Kathmandu, Nepal</small>
-              </div>
 
-              <!-- Timeline item 4 -->
-              <div class="text-center position-relative px-3 mb-4" style="min-width: 180px; z-index: 2;">
-                <div style="
-          width: 40px;
-          height: 40px;
-          background-color: #2E5A56;
-          color: white;
-          border-radius: 50%;
-          margin: 0 auto 10px auto;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-weight: bold;
-          font-size: 1.2rem;
-          box-shadow: 0 0 8px rgba(46,90,86,0.7);
-        ">4</div>
-                <h5 class="mb-1">Sunway International Business School</h5>
-                <small class="text-muted">Software Developer / Teaching Assistant<br>Jun 2019 – May 2021<br>Kathmandu, Nepal</small>
-              </div>
 
-              <!-- Timeline item 5 -->
-              <div class="text-center position-relative px-3 mb-4" style="min-width: 180px; z-index: 2;">
-                <div style="
-          width: 40px;
-          height: 40px;
-          background-color: #2E5A56;
-          color: white;
-          border-radius: 50%;
-          margin: 0 auto 10px auto;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-weight: bold;
-          font-size: 1.2rem;
-          box-shadow: 0 0 8px rgba(46,90,86,0.7);
-        ">5</div>
-                <h5 class="mb-1">Neosphere Pvt Ltd.</h5>
-                <small class="text-muted">Senior IT Instructor / Software Developer<br>May 2018 – Jul 2019<br>Kathmandu, Nepal</small>
-              </div>
+    <section id="tech-stack" class="py-5" style="background-color: var(--alt-bg-color-content);">
+     <iframe src="tech_stack.html" 
+        width="100%" 
+        height="500px" 
+        style="border:none;">
+</iframe>
+    </section>
 
-              <!-- Timeline item 6 -->
-              <div class="text-center position-relative px-3 mb-4" style="min-width: 180px; z-index: 2;">
-                <div style="
-          width: 40px;
-          height: 40px;
-          background-color: #2E5A56;
-          color: white;
-          border-radius: 50%;
-          margin: 0 auto 10px auto;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-weight: bold;
-          font-size: 1.2rem;
-          box-shadow: 0 0 8px rgba(46,90,86,0.7);
-        ">6</div>
-                <h5 class="mb-1">Harati Computer Services Pvt Ltd.</h5>
-                <small class="text-muted">Software Developer<br>Mar 2013 – Mar 2015<br>Kathmandu, Nepal</small>
-              </div>
+    
 
+    <section id="resume" class="py-5" style="background-color: var(--main-bg-color-content);">
+    <iframe src="workhistory.html" 
+        width="100%" 
+        height="700px" 
+        style="border:none;">
+</iframe>
+    </section>
+
+    
+
+    <section id="services" class="py-5" style="background-color: var(--alt-bg-color-content);">
+      <div class="container">
+        <h2 class="text-center mb-5" data-aos="fade-up" style="color: var(--main-text-color-content);">What I Offer 💡</h2>
+        <div class="row text-center g-4">
+
+          <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+            <div class="p-4 shadow-sm rounded h-100 service-card" style="background-color: var(--main-bg-color-content); color: var(--main-text-color-content);">
+              <i class="fas fa-laptop-code fs-2 mb-3" style="color: var(--center-text);"></i>
+              <h5>Custom Software Development</h5>
+              <p>Building scalable, secure, and maintainable **Full Stack applications** using Java, Python, Spring Boot, Django, and modern front-end frameworks.</p>
             </div>
           </div>
-        </section>
 
-        <!-- Include AOS and Bootstrap JS if not already added -->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
-        <script>
-          AOS.init({ duration: 1000, once: true });
-        </script>
+          <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+            <div class="p-4 shadow-sm rounded h-100 service-card" style="background-color: var(--main-bg-color-content); color: var(--main-text-color-content);">
+              <i class="fas fa-robot fs-2 mb-3" style="color: var(--center-text);"></i>
+              <h5>Automation & Testing Solutions</h5>
+              <p>Developing automated testing frameworks and **CI/CD pipelines** with Robot Framework, Playwright, Jenkins, GitHub Actions, and Python scripting.</p>
+            </div>
+          </div>
 
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Services Section -->
-<!-- Services Section -->
-<section id="services" class="py-5" style="background-color:#D6ECE9;" data-aos="fade-up">
-  <div class="container">
-    <h2 class="text-center mb-4">What I offer</h2>
-    <div class="row text-center g-4">
-
-      <!-- Service 1 -->
-      <div class="col-md-4">
-        <div class="p-4 shadow-sm rounded h-100" style="background-color: #FFE6E6;">
-          <i class="bi bi-code-slash fs-2 text-success mb-3"></i>
-          <h5>Custom Software Development</h5>
-          <p>Building scalable, secure, and maintainable applications using Java, Python, Spring Boot, Django, and modern front-end frameworks.</p>
+          <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+            <div class="p-4 shadow-sm rounded h-100 service-card" style="background-color: var(--main-bg-color-content); color: var(--main-text-color-content);">
+              <i class="fas fa-cloud fs-2 mb-3" style="color: var(--center-text);"></i>
+              <h5>Cloud & DevOps Consulting</h5>
+              <p>Implementing containerization, deployment automation, and cloud infrastructure setup using **Docker, AWS, Ansible, and DevOps best practices.**</p>
+            </div>
+          </div>
         </div>
       </div>
+    </section>
 
-      <!-- Service 2 -->
-      <div class="col-md-4">
-        <div class="p-4 shadow-sm rounded h-100" style="background-color: #E6F7FF;">
-          <i class="bi bi-robot fs-2 text-success mb-3"></i>
-          <h5>Automation & Testing Solutions</h5>
-          <p>Developing automated testing frameworks and CI/CD pipelines with Robot Framework, Playwright, Jenkins, GitHub Actions, and Python scripting.</p>
+    
+
+    <section id="portfolio" class="py-5" style="background-color: var(--main-bg-color-content);">
+      <div class="container">
+        <h2 class="text-center mb-5" data-aos="fade-up" style="color: var(--main-text-color-content);">Featured Work 🗂️</h2>
+        <div class="row g-4 justify-content-center">
+
+          <div class="col-md-6 col-lg-3" data-aos="zoom-in" data-aos-delay="100">
+            <a href="https://github.com/jagritiS/all-captcha" target="_blank"
+               class="portfolio-card text-decoration-none shadow-sm rounded p-3 d-block h-100"
+               style="background-color: var(--alt-bg-color-content); color: var(--main-text-color-content) !important; border: 1px solid var(--nav-bg);">
+              <h5>All-CAPTCHA API</h5>
+              <p class="small">Multi-type CAPTCHA API built with **Python Flask** featuring text, math, slider, audio, and Google reCAPTCHA support.</p>
+            </a>
+          </div>
+
+          <div class="col-md-6 col-lg-3" data-aos="zoom-in" data-aos-delay="200">
+            <a href="https://github.com/jagritiS/aiget" target="_blank"
+               class="portfolio-card text-decoration-none shadow-sm rounded p-3 d-block h-100"
+               style="background-color: var(--alt-bg-color-content); color: var(--main-text-color-content) !important; border: 1px solid var(--nav-bg);">
+              <h5>AIGeT - Auto-Issue Generator Tool</h5>
+              <p class="small">**AI-powered tool** that detects TODO comments in code and auto-generates or updates GitHub issues.</p>
+            </a>
+          </div>
+
+          <div class="col-md-6 col-lg-3" data-aos="zoom-in" data-aos-delay="300">
+            <a href="https://github.com/jagritiS/AIMLN-Projects" target="_blank"
+               class="portfolio-card text-decoration-none shadow-sm rounded p-3 d-block h-100"
+               style="background-color: var(--alt-bg-color-content); color: var(--main-text-color-content) !important; border: 1px solid var(--nav-bg);">
+              <h5>AI & Machine Learning Projects</h5>
+              <p class="small">Multiple ML models for NER, sentiment analysis, and text classification using **Scikit-learn and TensorFlow.**</p>
+            </a>
+          </div>
+
+          <div class="col-md-6 col-lg-3" data-aos="zoom-in" data-aos-delay="400">
+            <a href="https://github.com/jagritiS" target="_blank"
+               class="portfolio-card text-decoration-none shadow-sm rounded p-3 d-block h-100"
+               style="background-color: var(--alt-bg-color-content); color: var(--main-text-color-content) !important; border: 1px solid var(--nav-bg);">
+              <h5>More Projects on GitHub</h5>
+              <p class="small">Explore my GitHub for open-source contributions and other personal and professional projects.</p>
+            </a>
+          </div>
+
         </div>
       </div>
+    </section>
 
-      <!-- Service 3 -->
-      <div class="col-md-4">
-        <div class="p-4 shadow-sm rounded h-100" style="background-color: #F5FFE6;">
-          <i class="bi bi-cloud-upload fs-2 text-success mb-3"></i>
-          <h5>Cloud & DevOps Consulting</h5>
-          <p>Implementing containerization, deployment automation, and cloud infrastructure setup using Docker, AWS, Ansible, and DevOps best practices.</p>
+    
+
+    <section id="contact" class="py-5" style="background-color: var(--alt-bg-color-content);">
+      <div class="container text-center">
+        <h2 class="mb-4" data-aos="fade-up" style="color: var(--main-text-color-content);">Let's Work Together 🤝</h2>
+        <p class="lead" data-aos="fade-up" data-aos-delay="100" style="color: var(--main-text-color-content);">
+          <span style="color: var(--nav-hover-bg); font-weight: bold;">>&nbsp;STATUS:</span> 
+          <span style="color: var(--center-text);">Ready to connect</span>
+        </p>
+        
+        <div class="my-4 p-4 rounded mx-auto" data-aos="zoom-in" data-aos-delay="200" style="max-width: 600px; background-color: var(--main-bg-color-content); border: 2px dashed var(--nav-hover-bg);">
+          <h3 style="color: var(--center-text); font-size: 2rem;">
+            <span style="color: var(--social-hover-color); font-weight: 500;">EMAIL_TO:</span>
+            <a href="mailto:jagritisrvstv@gmail.com" class="text-decoration-none" style="color: var(--nav-text); font-size: 1.8rem; letter-spacing: 1px;">
+              jagritisrvstv@gmail.com<span class="cursor">|</span>
+            </a>
+          </h3>
+          <p class="mt-3" style="color: var(--main-text-color-content);">
+            <i class="fab fa-linkedin-in me-2" style="color: var(--center-text);"></i>
+            **Connect with me on LinkedIn for professional inquiries.**
+          </p>
+        </div>
+
+        <a href="cv/jagriti_cv.pdf" target="_blank" class="btn btn-lg mt-4" data-aos="fade-up" data-aos-delay="300"
+           style="background-color: var(--nav-hover-bg); color: var(--nav-text-hover); font-weight: bold; border-radius: 5px;">
+           Download Full Resume <i class="fas fa-file-download ms-2"></i>
+        </a>
+        
+      </div>
+    </section>
+
+    <footer class="py-4 mt-5" style="background-color: var(--nav-bg); color: var(--nav-text);">
+      <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center">
+        <div class="mb-3 mb-md-0">
+          <strong>© 2025 Jagriti Srivastava</strong> — Crafted with passion for code & AI
+        </div>
+        <div>
+          <a href="mailto:jagritisrvstv@gmail.com" class="me-3" title="Email Me" style="color: var(--nav-text) !important;"><i class="fas fa-envelope"></i></a>
+          <a href="https://www.linkedin.com/in/jagritisrivastava/" target="_blank" title="LinkedIn" style="color: var(--nav-text) !important;"><i class="fab fa-linkedin-in"></i></a>
+          <a href="https://pypi.org/user/jagritiS/" target="_blank" title="PyPI Packages" style="color: var(--nav-text) !important; margin-left: 1rem;"><i class="fas fa-box"></i></a>
         </div>
       </div>
-
-    </div>
-  </div>
-</section>
-
-
-<section id="portfolio" class="py-5" style="background-color:#f8f9fa;" data-aos="fade-up">
-  <div class="container">
-    <h2 class="text-center mb-5">Work Done</h2>
-    <div class="row g-4 justify-content-center">
-
-      <!-- Project 1 -->
-      <div class="col-md-6 col-lg-3">
-        <a href="https://github.com/jagritiS/all-captcha" target="_blank"
-           class="portfolio-card text-decoration-none text-dark shadow-sm rounded p-3 d-block h-100"
-           style="background-color: #FFDDEE;">
-          <h5>All-CAPTCHA API</h5>
-          <p class="small">Multi-type CAPTCHA API built with Python Flask featuring text, math, slider, audio, and Google reCAPTCHA support.</p>
-        </a>
-      </div>
-
-      <!-- Project 2 -->
-      <div class="col-md-6 col-lg-3">
-        <a href="https://github.com/jagritiS/aiget" target="_blank"
-           class="portfolio-card text-decoration-none text-dark shadow-sm rounded p-3 d-block h-100"
-           style="background-color: #DDEEFF;">
-          <h5>AIGeT - Auto-Issue Generator Tool</h5>
-          <p class="small">AI-powered tool that detects TODO comments in code and auto-generates or updates GitHub issues for better project management.</p>
-        </a>
-      </div>
-
-      <!-- Project 3 -->
-      <div class="col-md-6 col-lg-3">
-        <a href="https://github.com/jagritiS/AIMLN-Projects" target="_blank"
-           class="portfolio-card text-decoration-none text-dark shadow-sm rounded p-3 d-block h-100"
-           style="background-color: #EEFFDD;">
-          <h5>AI & Machine Learning Projects</h5>
-          <p class="small">Multiple ML models for NER, sentiment analysis, and text classification using Scikit-learn and TensorFlow.</p>
-        </a>
-      </div>
-
-      <!-- Project 4 -->
-      <div class="col-md-6 col-lg-3">
-        <a href="https://github.com/jagritiS" target="_blank"
-           class="portfolio-card text-decoration-none text-dark shadow-sm rounded p-3 d-block h-100"
-           style="background-color: #FFF0DD;">
-          <h5>More Projects</h5>
-          <p class="small">Explore my GitHub for open-source contributions and other personal and professional projects.</p>
-        </a>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<style>
-  .portfolio-card:hover {
-    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-    transform: translateY(-6px);
-    transition: all 0.3s ease;
-  }
-  .portfolio-card img {
-    transition: transform 0.3s ease;
-  }
-  .portfolio-card:hover img {
-    transform: scale(1.05);
-  }
-</style>
-
-
-<footer class="bg-dark text-light py-4 mt-5">
-  <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center">
-    <div class="mb-3 mb-md-0">
-      <strong>© 2025 Jagriti Srivastava</strong> — Crafted with passion for clean code & AI innovations
-    </div>
-  </div>
-</footer>
-
-<style>
-  footer a:hover {
-    color: #4C9C95;
-    text-decoration: none;
-    transform: scale(1.2);
-    transition: 0.3s ease;
-  }
-</style>
-
+    </footer>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+
 <script>
-  AOS.init({ duration: 1000, once: true });
+  // Initialize AOS
+  AOS.init({ duration: 800, once: true });
+
+  // Typed Text Script
   const phrases = [
     "Full Stack Developer",
     "AI Enthusiast",
     "Mentor / IT Instructor",
     "Tech Blogger"
   ];
+  const phraseIcons = [
+    '<i class="fas fa-code"></i>',
+    '<i class="fas fa-brain"></i>',
+    '<i class="fas fa-chalkboard-teacher"></i>',
+    '<i class="fas fa-pen-nib"></i>'
+  ];
   let currentPhrase = 0;
   let currentChar = 0;
   const typedText = document.getElementById("typed-text");
+  const typedIcon = document.getElementById("typed-icon");
+
   function type() {
     const current = phrases[currentPhrase];
+    typedIcon.innerHTML = phraseIcons[currentPhrase];
     typedText.textContent = current.slice(0, currentChar++);
     if (currentChar <= current.length) {
-      setTimeout(type, 100);
+      setTimeout(type, 80);
     } else {
       setTimeout(erase, 2000);
     }
@@ -614,14 +552,111 @@
     const current = phrases[currentPhrase];
     typedText.textContent = current.slice(0, --currentChar);
     if (currentChar > 0) {
-      setTimeout(erase, 50);
+      setTimeout(erase, 40);
     } else {
       currentPhrase = (currentPhrase + 1) % phrases.length;
       setTimeout(type, 500);
     }
   }
   document.addEventListener("DOMContentLoaded", type);
+
+  // --- AUTOMATIC THEME CYCLING LOGIC ---
+  const themes = ['theme1', 'theme2', 'theme3'];
+  let currentThemeIndex = 0;
+
+  function cycleTheme() {
+    const body = document.body;
+    
+    // 1. Remove the current theme
+    body.classList.remove(themes[currentThemeIndex]);
+    
+    // 2. Advance to the next theme index
+    currentThemeIndex = (currentThemeIndex + 1) % themes.length;
+    
+    // 3. Add the new theme class
+    body.classList.add(themes[currentThemeIndex]);
+  }
+
+  // Start the theme cycle function, running every 8000 milliseconds (8 seconds)
+  setInterval(cycleTheme, 8000); 
+  // ----------------------------------------
+  
+  
+  // Latest Activities Script (GitHub API) - Includes exclusion filter
+  async function fetchLatestGitHubActivity(username, count) {
+    const REPO_TO_EXCLUDE = `${username}/jagriti_portfolio`; // <-- Exclude your portfolio repo!
+    const url = `https://api.github.com/users/${username}/events/public`;
+
+    try {
+      const response = await fetch(url);
+      const events = await response.json();
+      const feedContainer = document.getElementById('activity-feed');
+      feedContainer.innerHTML = ''; // Clear loading message
+
+      const displayEvents = events
+        .filter(event =>
+          (event.type === 'PushEvent' || event.type === 'CreateEvent' || event.type === 'PullRequestEvent') &&
+          event.repo.name !== REPO_TO_EXCLUDE // Apply the exclusion filter
+        )
+        .slice(0, count);
+
+      if (displayEvents.length === 0) {
+        feedContainer.innerHTML = '<p class="text-center" style="color: var(--main-text-color-content);">No recent public activity found on GitHub (after filtering the portfolio repo).</p>';
+        return;
+      }
+
+      displayEvents.forEach(event => {
+        let icon = '';
+        let title = '';
+        let activityUrl = '';
+        let repoName = event.repo.name;
+
+        if (event.type === 'PushEvent') {
+          icon = '<i class="fas fa-code-commit"></i>';
+          const commitMessage = event.payload.commits && event.payload.commits.length > 0
+                                ? event.payload.commits[0].message.split('\n')[0]
+                                : `Code push to ${repoName}`;
+          title = commitMessage;
+          activityUrl = `https://github.com/${repoName}/commit/${event.payload.head}`;
+        } else if (event.type === 'CreateEvent' && event.payload.ref_type === 'repository') {
+          icon = '<i class="fas fa-folder-plus"></i>';
+          title = `New repository created: ${repoName.split('/')[1]}`;
+          activityUrl = `https://github.com/${repoName}`;
+        } else if (event.type === 'PullRequestEvent' && event.payload.action === 'opened') {
+          icon = '<i class="fas fa-code-pull-request"></i>';
+          title = event.payload.pull_request.title;
+          activityUrl = event.payload.pull_request.html_url;
+        }
+
+        if (title) {
+            const date = new Date(event.created_at).toLocaleDateString('en-US', {
+                year: 'numeric', month: 'short', day: 'numeric'
+            });
+            const cardHtml = `
+            <div class="col-md-6 col-lg-4" data-aos="fade-up">
+              <a href="${activityUrl}" target="_blank" class="text-decoration-none d-block h-100 p-3 rounded shadow-sm portfolio-card" style="background-color: var(--main-bg-color-content); color: var(--main-text-color-content) !important; border: 1px solid var(--nav-bg);">
+                <p class="small mb-1" style="color: var(--center-text);">${icon} &nbsp;${date}</p>
+                <h5 class="mb-0 text-truncate">${title}</h5>
+                <p class="small mt-2 mb-0 text-secondary" style="color: var(--nav-text) !important;">Repo: ${repoName}</p>
+              </a>
+            </div>
+          `;
+          feedContainer.insertAdjacentHTML('beforeend', cardHtml);
+        }
+      });
+
+    } catch (error) {
+      console.error("Error fetching GitHub activity:", error);
+      document.getElementById('activity-feed').innerHTML = '<p class="text-center text-danger" style="color: var(--social-hover-color) !important;">Could not load activity feed. Please check the network connection or API usage limits.</p>';
+    }
+  }
+
+  // Fetch the activities when the DOM is ready
+  document.addEventListener("DOMContentLoaded", () => {
+      // IMPORTANT: Replace 'jagritiS' with your actual GitHub username!
+      fetchLatestGitHubActivity('jagritiS', 6);
+  });
 </script>
+
 </body>
 </html>
-
