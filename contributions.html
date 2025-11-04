@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Contribution Portfolio</title>
+  <style>
+    /* Full-screen setup */
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      width: 100vw;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: radial-gradient(#050505, #0a0a0a);
+      overflow: hidden;
+      font-family: sans-serif;
+    }
+
+    /* Full-screen portfolio section */
+    .portfolio-section {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* Central core */
+    .ai-core {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 120px;
+      height: 120px;
+      background: #0ff;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: bold;
+      color: #000;
+      box-shadow: 0 0 20px #0ff, 0 0 50px #0ff;
+      z-index: 2;
+    }
+
+    /* Orbiting orbs */
+    .orb {
+      position: absolute;
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      background: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 0 10px #0ff, 0 0 25px #0ff;
+      cursor: pointer;
+      z-index: 1;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .orb img {
+      width: 50%;
+      height: 50%;
+    }
+
+    .orb:hover {
+      transform: scale(1.3) translateZ(0);
+      box-shadow: 0 0 20px #0ff, 0 0 50px #0ff;
+    }
+
+    /* Tooltip */
+    .tooltip {
+      position: absolute;
+      bottom: -25px;
+      background: #0ff;
+      color: #000;
+      padding: 3px 6px;
+      border-radius: 4px;
+      font-size: 12px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+      white-space: nowrap;
+    }
+
+    .orb:hover .tooltip {
+      opacity: 1;
+    }
+
+    /* Animated background gradient */
+    body::before {
+      content: '';
+      position: fixed;
+      top:0; left:0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(-45deg, #0ff, #05f, #0f0, #ff0);
+      background-size: 400% 400%;
+      animation: gradientBG 20s ease infinite;
+      z-index: 0;
+      opacity: 0.2;
+    }
+
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+  </style>
+</head>
+<body>
+  <div class="portfolio-section">
+    <div class="ai-core">YOU</div>
+
+    <div class="orb" data-platform="Medium" data-link="https://medium.com/@jagriti">
+      <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/medium.svg" alt="Medium">
+      <span class="tooltip">10 Articles</span>
+    </div>
+
+    <div class="orb" data-platform="Hugging Face" data-link="https://huggingface.co/jagriti">
+      <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/huggingface.svg" alt="Hugging Face">
+      <span class="tooltip">3 Projects</span>
+    </div>
+
+    <div class="orb" data-platform="Kaggle" data-link="https://kaggle.com/jagriti">
+      <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/kaggle.svg" alt="Kaggle">
+      <span class="tooltip">Top 10%</span>
+    </div>
+
+    <div class="orb" data-platform="PyPI" data-link="https://pypi.org/user/jagriti">
+      <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/pypi.svg" alt="PyPI">
+      <span class="tooltip">5 Packages</span>
+    </div>
+
+    <div class="orb" data-platform="Gradle" data-link="#">
+      <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/gradle.svg" alt="Gradle">
+      <span class="tooltip">Future Contribution</span>
+    </div>
+  </div>
+
+  <script>
+    const orbs = document.querySelectorAll('.orb');
+
+    orbs.forEach((orb, i) => {
+      // Random center position for each orb
+      const centerX = Math.random() * window.innerWidth;
+      const centerY = Math.random() * window.innerHeight;
+      const radius = 50 + Math.random() * 200; // orbit radius
+      let angle = Math.random() * Math.PI * 2;
+      const speed = 0.005 + Math.random() * 0.01;
+
+      function animate() {
+        angle += speed;
+        const x = centerX + radius * Math.cos(angle);
+        const y = centerY + radius * Math.sin(angle);
+        orb.style.transform = `translate(${x}px, ${y}px)`;
+        requestAnimationFrame(animate);
+      }
+
+      animate();
+
+      orb.addEventListener('click', () => {
+        window.open(orb.dataset.link, '_blank');
+      });
+    });
+
+    // Optional: Orbs slightly follow the cursor
+    document.addEventListener('mousemove', e => {
+      const centerX = window.innerWidth / 2;
+      const centerY = window.innerHeight / 2;
+      orbs.forEach((orb, i) => {
+        const offsetX = (e.clientX - centerX) * 0.02 * (i+1);
+        const offsetY = (e.clientY - centerY) * 0.02 * (i+1);
+        orb.style.transform += ` translate(${offsetX}px, ${offsetY}px)`;
+      });
+    });
+  </script>
+</body>
+</html>

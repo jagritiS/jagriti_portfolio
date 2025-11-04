@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About Me & Book Portfolio</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lora:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+<style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+
+    body {
+        font-family: 'Lora', serif;
+        background: radial-gradient(ellipse at center, #2a1f3d 0%, #1c1430 50%, #0f0a1a 100%);
+        min-height:100vh;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        overflow:hidden;
+        perspective:2000px;
+        position:relative;
+    }
+
+    body::before {
+        content:'';
+        position:absolute;
+        width:120%;height:120%;
+        background:radial-gradient(circle at 50% 10%, rgba(139,95,57,.15), transparent 60%);
+        animation:ambientPulse 8s ease-in-out infinite;
+    }
+
+    @keyframes ambientPulse {
+        0%,100% { opacity:.3; transform:scale(1); }
+        50% { opacity:.5; transform:scale(1.05); }
+    }
+
+    .particle {
+        position:absolute;
+        width:2px;height:2px;
+        background:rgba(255,255,255,0.35);
+        border-radius:50%;
+        animation:float 12s infinite ease-in-out;
+    }
+
+    @keyframes float {
+        0% { opacity:0; transform:translateY(0); }
+        10% { opacity:.5; }
+        90% { opacity:.5; }
+        100% { opacity:0; transform:translateY(-100vh); }
+    }
+
+    .container {
+        display:flex;
+        gap:50px;
+        align-items:center;
+        max-width:1200px;
+        width:100%;
+        padding:20px;
+    }
+
+    .about-section {
+        flex:0 0 40%;
+        background: rgba(255,255,255,0.05);
+        padding:30px;
+        justify-content: flex-start;
+        border-radius:12px;
+        backdrop-filter: blur(8px);
+        box-shadow: 0 0 20px rgba(0,0,0,0.5);
+        text-align:center;
+         transform: translateY(-60px);
+    }
+
+    .about-section h1 {
+        font-family:'Cinzel', serif;
+        font-size:36px;
+        color:#f5f0e8;
+        margin-bottom:15px;
+    }
+
+    .about-section p {
+        font-size:18px;
+        color:#d4c5a9;
+        line-height:1.6;
+    }
+
+    .book-wrapper {
+        flex:0 0 60%;
+        transform:rotateX(8deg) rotateY(-8deg) scale(1);
+        transition:.8s cubic-bezier(.34,1.56,.64,1);
+    }
+
+    .book-wrapper:hover { transform:rotateX(5deg) rotateY(-4deg) scale(1.05); }
+
+    .book {
+        width:100%;
+        height:700px;
+        position:relative;
+        transform-style:preserve-3d;
+    }
+
+    .book-base {
+        position:absolute;
+        width:100%;height:100%;
+        background:linear-gradient(135deg,#5a4332,#3d2817,#2a1810);
+        border-radius:10px;
+        box-shadow:inset 0 0 80px rgba(0,0,0,.8);
+    }
+
+    .book-spine {
+        width:12px;height:100%;
+        position:absolute;
+        left:50%;transform:translateX(-6px);
+        background:linear-gradient(#e0d5c5,#f5f0e8,#e0d5c5);
+    }
+
+    .pages-container {
+        position:absolute;
+        top:2%;left:2%;
+        width:96%;height:96%;
+        display:flex;gap:10px;
+    }
+
+    .page-side {
+        width:calc(50% - 5px);
+        background:linear-gradient(#fffef9,#fdfaf3);
+        border:1px solid #e8e3d8;
+        border-radius:2px;
+        position:relative;
+    }
+
+    .left-page { box-shadow:inset -25px 0 35px -10px rgba(0,0,0,.2); }
+    .right-page { box-shadow:inset 25px 0 35px -10px rgba(0,0,0,.2); }
+
+    .page-content {
+        padding:60px;
+        height:100%;
+        display:flex;
+        flex-direction:column;
+        justify-content:space-between;
+    }
+
+    .page-text { font-size:20px; line-height:1.8; }
+    .title-text {
+        font-family:'Cinzel',serif;
+        font-size:30px;
+        text-align:center;
+        color:#8b5f39;
+        letter-spacing:4px;
+    }
+
+    .subtitle-text {
+        font-family:'Cinzel',serif;
+        text-align:center;
+        font-size:26px;
+        color:#a08c78;
+    }
+
+    .highlight { color:#8b5f39; font-weight:bold; }
+
+    .about-me-footer {
+        font-size:13px;
+        text-align:center;
+        border-top:1px dashed #d4c5a9;
+        padding-top:10px;
+        color:#777;
+    }
+
+    .page-number {
+        position:absolute;
+        bottom:20px;right:50px;
+        font-family:Cinzel;
+        font-size:18px;
+        color:#a08c78;
+    }
+
+    .turning-pages {
+        position:absolute;
+        right:0;
+        width:50%;
+        height:100%;
+        pointer-events:none;
+        transform-style:preserve-3d;
+    }
+
+    .flip-page-wrapper {
+        position:absolute;
+        width:100%;height:100%;
+        transform-origin:left center;
+        transform-style:preserve-3d;
+    }
+
+    .flip-page, .flip-page-back {
+        position:absolute;
+        width:100%;height:100%;
+        background:linear-gradient(#fffef9,#fdfaf3);
+        backface-visibility:hidden;
+        border:1px solid #e8e3d8;
+        border-radius:2px;
+        box-shadow:inset 25px 0 35px -10px rgba(0,0,0,.2);
+    }
+
+    .flip-page-back { 
+        transform:rotateY(180deg); 
+        box-shadow:inset -25px 0 35px -10px rgba(0,0,0,.2);
+    }
+
+    @keyframes flipPage {
+        0% { transform:rotateY(0deg); }
+        100% { transform:rotateY(-180deg); }
+    }
+
+    .animate-flip { animation:flipPage 1.5s ease-in-out forwards; }
+
+</style>
+
+<script>
+    for(let i=0;i<18;i++){
+        const p=document.createElement('div');
+        p.className='particle';
+        p.style.left=Math.random()*100+'%';
+        p.style.animationDelay=Math.random()*8+'s';
+        document.body.appendChild(p);
+    }
+</script>
+
+<div class="container">
+    <div class="about-section">
+        <h1>About Me</h1>
+        <p>Hi! I'm <strong>Jagriti Srivastava</strong>, a passionate Software Engineer specializing in AI-powered and full-stack solutions. I love creating elegant code and impactful projects, mentoring, and exploring innovative technologies.</p>
+    </div>
+
+    <div class="book-wrapper">
+        <div class="book">
+
+            <div class="book-base"></div>
+            <div class="book-spine"></div>
+
+            <div class="pages-container">
+
+                <!-- LEFT PAGE -->
+                <div class="page-side left-page">
+                    <div class="page-content" id="leftPageContent">
+                        <div>
+                            <div class="title-text">My Story</div>
+                            <div class="subtitle-text">A Software Engineer's Journey</div>
+                        </div>
+                        <div class="about-me-footer">
+                            Hi, I'm <strong>Jagriti Srivastava</strong> — passionate about clean code & AI solutions.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RIGHT PAGE -->
+                <div class="page-side right-page">
+                    <div class="page-content" id="rightPageContent">
+                        <div class="page-text" id="rightPageText"></div>
+                        <div class="about-me-footer" id="footer"></div>
+                        <div class="page-number" id="pageNum"></div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="turning-pages" id="flipContainer"></div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    const pages = [
+        { left:'<div><div class="title-text">The Story</div><div class="title-text">of Jagriti</div><div class="subtitle-text">A Software Engineer\'s Journey</div></div>', right:'My journey is about transforming complex problems into elegant code. I believe in the power of <span class="highlight">software</span> to create meaningful solutions.', number:1 },
+        { left:'My journey is about transforming complex problems into elegant code. I believe in the power of <span class="highlight">software</span> to create meaningful solutions.', right:'I specialize in <span class="highlight">full-stack development</span>, leveraging modern AI and cloud technologies.', number:2 },
+        { left:'I specialize in <span class="highlight">full-stack development</span>, leveraging modern AI and cloud technologies.', right:'I love <span class="highlight">mentoring and teaching</span>, helping others grow in tech.', number:3 },
+        { left:'I love <span class="highlight">mentoring and teaching</span>, helping others grow in tech.', right:'I stay updated with emerging trends to stay at the <span class="highlight">forefront of innovation</span>.', number:4 },
+        { left:'I stay updated with emerging trends to stay at the <span class="highlight">forefront of innovation</span>.', right:'Outside coding, I enjoy <span class="highlight">blogging</span>, exploring tools, and family time.', number:5 },
+        { left:'Outside coding, I enjoy <span class="highlight">blogging</span>, exploring tools, and family time.', right:'<div style="text-align:center;"><span class="title-text" style="font-size:60px;">The End</span><div class="subtitle-text" style="margin-top:20px;font-size:30px;">Thank you for reading! ✨</div></div>', number:'' }
+    ];
+
+    let currentIndex = 0;
+    let isFlipping = false;
+    const about = "Hi! I'm <strong>Jagriti Srivastava</strong>, a passionate Software Engineer specializing in AI-powered and full-stack solutions.";
+
+    const leftPageContent = document.getElementById('leftPageContent');
+    const rightPageText = document.getElementById('rightPageText');
+    const pageNum = document.getElementById('pageNum');
+    const footer = document.getElementById('footer');
+    const flipContainer = document.getElementById('flipContainer');
+
+    function updatePages() {
+        const page = pages[currentIndex];
+        leftPageContent.innerHTML = `<div class="page-text">${page.left}</div><div class="about-me-footer">${about}</div>${currentIndex>0?`<div class="page-number" style="left:50px;">${page.number>0?page.number-1:''}</div>`:''}`;
+        rightPageText.innerHTML = page.right;
+        pageNum.textContent = page.number;
+        footer.innerHTML = about;
+    }
+
+    function turnPage() {
+        if (isFlipping) return;
+        if(currentIndex>=pages.length-1){ setTimeout(()=>{ currentIndex=0; updatePages(); setTimeout(turnPage,3500); },2000); return;}
+        isFlipping = true;
+        const nextPage = pages[currentIndex+1];
+        const flipWrapper = document.createElement('div'); flipWrapper.className='flip-page-wrapper';
+        const front = document.createElement('div'); front.className='flip-page';
+        front.innerHTML = `<div class="page-content"><div class="page-text">${pages[currentIndex].right}</div><div class="about-me-footer">${about}</div><div class="page-number">${pages[currentIndex].number}</div></div>`;
+        const back = document.createElement('div'); back.className='flip-page-back';
+        back.innerHTML = `<div class="page-content"><div class="page-text">${nextPage.left}</div><div class="about-me-footer">${about}</div><div class="page-number" style="left:50px;">${pages[currentIndex].number}</div></div>`;
+        flipWrapper.appendChild(front); flipWrapper.appendChild(back); flipContainer.appendChild(flipWrapper);
+        setTimeout(()=>flipWrapper.classList.add("animate-flip"),50);
+        setTimeout(()=>{ currentIndex++; updatePages(); },800);
+        setTimeout(()=>{ flipContainer.innerHTML=""; isFlipping=false; setTimeout(turnPage,3500); },1600);
+    }
+
+    window.onload = ()=>{ updatePages(); setTimeout(turnPage,3000); };
+</script>
+
+
+</body>
+</html>

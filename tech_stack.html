@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Futuristic Skill Badges</title>
+<style>
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: linear-gradient(135deg, #0d0d1a, #1a0d2f);
+    padding: 40px;
+    color: #fff;
+  }
+
+  /* Pop-in + Glowing Pulse Animation */
+  @keyframes earnedMerit {
+    0% { opacity: 0; transform: scale(0.5) translateY(20px); }
+    70% { opacity: 1; transform: scale(1.05); }
+    100% { opacity: 1; transform: scale(1) translateY(0); }
+  }
+
+  @keyframes pulseGlow {
+    0%, 100% { box-shadow: 0 0 5px #ff49d1, 0 0 10px #b24bff; }
+    50% { box-shadow: 0 0 15px #ff49d1, 0 0 20px #b24bff; }
+  }
+
+  .skill-badges-section {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 30px;
+    border-radius: 15px;
+    background: rgba(20, 20, 40, 0.8);
+    box-shadow: 0 0 30px rgba(178, 75, 255, 0.3);
+  }
+
+  h2 {
+    margin-bottom: 20px;
+    color: #ff49d1;
+    text-align: center;
+    text-shadow: 0 0 12px #ff49d1, 0 0 20px #b24bff;
+  }
+
+  .badges-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 10px 0;
+    justify-content: center;
+  }
+
+  .skill-badge {
+    display: flex;
+    align-items: center;
+    padding: 10px 18px;
+    border-radius: 30px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: default;
+    color: #fff;
+    background: linear-gradient(135deg, #ff49d1, #b24bff);
+    position: relative;
+
+    /* Animations */
+    animation: earnedMerit 0.7s cubic-bezier(0.175,0.885,0.32,1.275) forwards,
+               pulseGlow 3s ease-in-out infinite;
+    opacity: 0;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .skill-badge:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 25px #ff49d1, 0 0 40px #b24bff;
+  }
+
+  .skill-badge .badge-icon {
+    font-size: 20px;
+    margin-right: 8px;
+  }
+
+  .category-heading {
+    width: 100%;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-size: 16px;
+    font-weight: 700;
+    color: #ff49d1;
+    text-shadow: 0 0 8px #ff49d1, 0 0 12px #b24bff;
+    border-bottom: 1px solid rgba(178, 75, 255, 0.3);
+    padding-bottom: 4px;
+  }
+
+  /* Staggered animation delays */
+  .badges-container > :nth-child(1) { --badge-delay: 0.1s; }
+  .badges-container > :nth-child(2) { --badge-delay: 0.2s; }
+  .badges-container > :nth-child(3) { --badge-delay: 0.3s; }
+  .badges-container > :nth-child(4) { --badge-delay: 0.4s; }
+  .badges-container > :nth-child(5) { --badge-delay: 0.5s; }
+  .badges-container > :nth-child(6) { --badge-delay: 0.6s; }
+  .badges-container > :nth-child(7) { --badge-delay: 0.7s; }
+  .badges-container > :nth-child(8) { --badge-delay: 0.8s; }
+  .badges-container > :nth-child(9) { --badge-delay: 0.9s; }
+  .badges-container > :nth-child(10) { --badge-delay: 1s; }
+
+  .skill-badge {
+    animation-delay: var(--badge-delay, 0.5s);
+  }
+
+  /* Secondary badges */
+  .secondary-badge {
+    background: linear-gradient(135deg, #7beaff, #b24bff);
+    font-weight: 500;
+  }
+</style>
+</head>
+<body>
+
+<section class="skill-badges-section">
+    <h2>🌟 My Skills & Expertise</h2>
+    <div class="badges-container">
+
+        <div class="skill-badge" data-skill="Python Expert">
+            <span class="badge-icon">🐍</span>
+            <span class="badge-text">Python Expert</span>
+        </div>
+
+        <div class="skill-badge" data-skill="AI/ML Engineer">
+            <span class="badge-icon">🤖</span>
+            <span class="badge-text">Generative AI / LLMs</span>
+        </div>
+
+        <div class="skill-badge" data-skill="DevOps Practitioner">
+            <span class="badge-icon">☁️</span>
+            <span class="badge-text">DevOps & CI/CD</span>
+        </div>
+
+        <div class="skill-badge" data-skill="Secure Coding">
+            <span class="badge-icon">🔐</span>
+            <span class="badge-text">Secure Software Engineering</span>
+        </div>
+
+        <div class="skill-badge" data-skill="Performance Optimization">
+            <span class="badge-icon">⚡</span>
+            <span class="badge-text">Performance Optimization</span>
+        </div>
+
+        <div class="category-heading">Languages & Core Tech</div>
+        <div class="skill-badge secondary-badge">Java</div>
+        <div class="skill-badge secondary-badge">Kotlin</div>
+        <div class="skill-badge secondary-badge">Groovy</div>
+        <div class="skill-badge secondary-badge">Ruby (Familiar)</div>
+
+        <div class="category-heading">Frameworks & Tools</div>
+        <div class="skill-badge secondary-badge">Django</div>
+        <div class="skill-badge secondary-badge">Flask</div>
+        <div class="skill-badge secondary-badge">Spring Boot</div>
+        <div class="skill-badge secondary-badge">Grails</div>
+        <div class="skill-badge secondary-badge">RSpec</div>
+        <div class="skill-badge secondary-badge">Robot Framework</div>
+
+        <div class="category-heading">AI/ML & Data</div>
+        <div class="skill-badge secondary-badge">Generative AI</div>
+        <div class="skill-badge secondary-badge">LLM-powered Tools</div>
+        <div class="skill-badge secondary-badge">NLP Automation</div>
+        <div class="skill-badge secondary-badge">PostgreSQL</div>
+        <div class="skill-badge secondary-badge">MySQL</div>
+
+        <div class="category-heading">DevOps, APIs & Testing</div>
+        <div class="skill-badge secondary-badge">GitLab & Actions</div>
+        <div class="skill-badge secondary-badge">Jenkins</div>
+        <div class="skill-badge secondary-badge">Docker & Ansible</div>
+        <div class="skill-badge secondary-badge">REST & GraphQL APIs</div>
+        <div class="skill-badge secondary-badge">Playwright</div>
+        <div class="skill-badge secondary-badge">PyTest & JUnit</div>
+        <div class="skill-badge secondary-badge">OWASP</div>
+        <div class="skill-badge secondary-badge">Secure Software Eng.</div>
+
+    </div>
+</section>
+
+</body>
+</html>

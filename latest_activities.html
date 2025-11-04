@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GitHub Activity Dashboard</title>
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    background: radial-gradient(circle at center, #0c0c10, #000);
+    color: #fff;
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  .dashboard {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    width: 90%;
+    max-width: 1100px;
+    height: 80vh;
+    border-radius: 20px;
+    background: rgba(20, 20, 25, 0.7);
+    box-shadow: 0 0 30px #00ffff33, inset 0 0 30px #ff00ff22;
+    backdrop-filter: blur(10px);
+    padding: 40px;
+  }
+
+  /* Left side - logo */
+  .left-panel {
+    flex: 0.4;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-right: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .github-glow {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    border: 4px solid #00ffff;
+    box-shadow: 0 0 40px #00ffff, 0 0 70px #ff00ff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: rotate 10s linear infinite;
+  }
+
+  .github-logo {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  @keyframes rotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  .left-panel h2 {
+    margin-top: 25px;
+    text-align: center;
+    font-size: 22px;
+    color: #00ffff;
+  }
+
+  /* Right side - activity feed */
+  .right-panel {
+    flex: 0.6;
+    padding-left: 40px;
+    overflow-y: auto;
+    height: 100%;
+  }
+
+  .activity-card {
+    background: linear-gradient(135deg, #ff00ff22, #00ffff22);
+    border: 1px solid #00ffff55;
+    border-radius: 12px;
+    padding: 15px 20px;
+    margin-bottom: 18px;
+    box-shadow: 0 0 10px #00ffff33;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+
+  .activity-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 0 25px #ff00ff66, 0 0 50px #00ffff99;
+  }
+
+  .activity-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+
+  .activity-meta {
+    font-size: 13px;
+    opacity: 0.8;
+  }
+
+  .activity-meta a {
+    color: #00ffff;
+    text-decoration: none;
+  }
+
+  .activity-meta a:hover {
+    text-decoration: underline;
+  }
+
+  /* Scrollbar */
+  .right-panel::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .right-panel::-webkit-scrollbar-thumb {
+    background-color: #00ffff55;
+    border-radius: 3px;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    body {
+      height: auto;
+      padding: 20px 0;
+    }
+    .dashboard {
+      flex-direction: column;
+      align-items: center;
+      height: auto;
+    }
+    .left-panel {
+      border-right: none;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      margin-bottom: 20px;
+    }
+    .right-panel {
+      padding: 0;
+      width: 100%;
+      height: auto;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="dashboard">
+  <div class="left-panel">
+    <div class="github-glow">
+      <img src="../logos/gihub.gif" alt="GitHub Logo" class="github-logo">
+    </div>
+    <h2>Latest Contributions</h2>
+  </div>
+
+  <div class="right-panel" id="activity-feed">
+    <p style="text-align:center;opacity:0.7;">Fetching recent GitHub activity...</p>
+  </div>
+</div>
+
+<script>
+const username = 'jagritiS';
+const REPO_TO_EXCLUDE = `${username}/jagriti_portfolio`;
+const feedContainer = document.getElementById('activity-feed');
+
+async function fetchGitHubActivity() {
+  try {
+    const res = await fetch(`https://api.github.com/users/${username}/events/public`);
+    const events = await res.json();
+    const filtered = events.filter(event =>
+      (event.type === 'PushEvent' || event.type === 'CreateEvent' || event.type === 'PullRequestEvent') &&
+      event.repo.name !== REPO_TO_EXCLUDE
+    );
+
+    renderFeed(filtered.slice(0, 10)); // Show top 10 activities
+  } catch (err) {
+    console.error('GitHub API error:', err);
+    feedContainer.innerHTML = '<p style="text-align:center;">Error loading activity</p>';
+  }
+}
+
+function renderFeed(events) {
+  feedContainer.innerHTML = ''; 
+  events.forEach(event => {
+    let title = '', url = '';
+    const repoName = event.repo.name;
+
+    if (event.type === 'PushEvent') {
+      title = event.payload.commits?.[0]?.message || `Code push to ${repoName}`;
+      url = `https://github.com/${repoName}/commit/${event.payload.head}`;
+    } else if (event.type === 'CreateEvent' && event.payload.ref_type === 'repository') {
+      title = `New repository created: ${repoName.split('/')[1]}`;
+      url = `https://github.com/${repoName}`;
+    } else if (event.type === 'PullRequestEvent' && event.payload.action === 'opened') {
+      title = `Opened Pull Request: ${event.payload.pull_request.title}`;
+      url = event.payload.pull_request.html_url;
+    }
+
+    const date = new Date(event.created_at).toLocaleString('en-US', {
+      month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit'
+    });
+
+    const card = document.createElement('div');
+    card.className = 'activity-card';
+    card.innerHTML = `
+      <div class="activity-title">${title}</div>
+      <div class="activity-meta">
+        Repo: <a href="https://github.com/${repoName}" target="_blank">${repoName}</a><br>
+        Date: ${date} — <a href="${url}" target="_blank">View</a>
+      </div>
+    `;
+    feedContainer.appendChild(card);
+  });
+}
+
+// Initial fetch and refresh every 20s
+fetchGitHubActivity();
+setInterval(fetchGitHubActivity, 20000);
+</script>
+
+</body>
+</html>
